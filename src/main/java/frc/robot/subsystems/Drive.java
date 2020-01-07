@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMTalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -18,10 +20,10 @@ public class Drive extends SubsystemBase {
 
   private final DifferentialDrive driveBase;
 
-  private final PWMTalonSRX frontLeft;
-  private final PWMTalonSRX backLeft;
-  private final PWMTalonSRX frontRight;
-  private final PWMTalonSRX backRight;
+  private final CANSparkMax frontLeft;
+  private final CANSparkMax backLeft;
+  private final CANSparkMax frontRight;
+  private final CANSparkMax backRight;
 
   private final SpeedControllerGroup leftSide;
   private final SpeedControllerGroup rightSide;
@@ -30,10 +32,10 @@ public class Drive extends SubsystemBase {
 
     CommandScheduler.getInstance().registerSubsystem(this);
 
-    frontLeft = new PWMTalonSRX(Constants.K_DRIVE_LEFT_FRONT_ID);
-    frontRight = new PWMTalonSRX(Constants.K_DRIVE_RIGHT_FRONT_ID);
-    backLeft = new PWMTalonSRX(Constants.K_DRIVE_LEFT_BACK_ID);
-    backRight = new PWMTalonSRX(Constants.K_DRIVE_RIGHT_BACK_ID);
+    frontLeft = new CANSparkMax(Constants.K_DRIVE_LEFT_FRONT_ID, MotorType.kBrushless);
+    frontRight = new CANSparkMax(Constants.K_DRIVE_RIGHT_FRONT_ID, MotorType.kBrushless);
+    backLeft = new CANSparkMax(Constants.K_DRIVE_LEFT_BACK_ID, MotorType.kBrushless);
+    backRight = new CANSparkMax(Constants.K_DRIVE_RIGHT_BACK_ID, MotorType.kBrushless);
 
     leftSide = new SpeedControllerGroup(frontLeft, backLeft);
     rightSide = new SpeedControllerGroup(frontRight, backRight);

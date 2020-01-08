@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.DriveCommand;
+import frc.robot.commands.Arcade;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,17 +15,15 @@ import edu.wpi.first.wpilibj.XboxController;
 public class RobotContainer {
 
   private final Drive m_exampleSubsystem = new Drive();
-  private final DriveCommand m_autoCommand = new DriveCommand(m_exampleSubsystem);
+  private final Arcade m_autoCommand = new Arcade(m_exampleSubsystem);
 
-  XboxController joy = new XboxController(0);
+  public static XboxController joy = new XboxController(0);
 
   public RobotContainer() {
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    DriveCommand.leftSpeed = () -> joy.getRawAxis(0);
-    DriveCommand.rightSpeed = () -> joy.getRawAxis(1);
   }
 
   public Command getAutonomousCommand() {

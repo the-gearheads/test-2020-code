@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ControllerInput;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive;
 import frc.robot.Constants;
 
-public class DriveCommand extends CommandBase {
+public class Arcade extends CommandBase {
 
   private final Drive driveTrain;
 
-  public static ControllerInput leftSpeed;
-  public static ControllerInput rightSpeed;
+  public static double speed = 0.0;
+  public static double rotation = 0.0;
 
-  public DriveCommand(Drive subsystem) {
+  public Arcade(Drive subsystem) {
     driveTrain = subsystem;
     addRequirements(subsystem);
     subsystem.setDefaultCommand(this);
@@ -27,6 +27,8 @@ public class DriveCommand extends CommandBase {
 
   @Override
   public void execute() {
-    driveTrain.arcadeDrive(leftSpeed.Value() * Constants.SPEED, rightSpeed.Value() * Constants.SPEED);
+    speed = RobotContainer.joy.getRawAxis(0);
+    rotation = RobotContainer.joy.getRawAxis(1);
+    driveTrain.arcadeDrive(speed * Constants.SPEED, rotation * Constants.SPEED);
   }
 }

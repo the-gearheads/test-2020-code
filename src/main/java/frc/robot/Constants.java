@@ -12,5 +12,5 @@ public final class Constants {
     public static final int K_DRIVE_LEFT_BACK_ID = 2;
     public static final int K_DRIVE_RIGHT_FRONT_ID = 3;
     public static final int K_DRIVE_RIGHT_BACK_ID = 12;
-    public static final double SPEED = 0.8;
+    public static final double SPEED = 0.5;
 }

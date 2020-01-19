@@ -7,15 +7,19 @@
 
 package frc.robot;
 
-import frc.robot.commands.Arcade;
+import frc.robot.commands.Tank;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.LeftSidePID;
+import frc.robot.subsystems.RightSidePID;
 import edu.wpi.first.wpilibj2.command.Command;
+
 import edu.wpi.first.wpilibj.XboxController;
 
 public class RobotContainer {
 
-  private final Drive m_exampleSubsystem = new Drive();
-  private final Arcade m_autoCommand = new Arcade(m_exampleSubsystem);
+  private final LeftSidePID leftPID = new LeftSidePID();
+  private final RightSidePID rightPID = new RightSidePID();
+  private final Tank m_autoCommand = new Tank(leftPID, rightPID);
 
   public static XboxController joy = new XboxController(0);
 

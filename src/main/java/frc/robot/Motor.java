@@ -11,7 +11,7 @@ public class Motor {
 
     public enum Type {
         Brushed(0), Brushless(1);
-
+        
         private int id;
         private Type(int val) {
             id = val;

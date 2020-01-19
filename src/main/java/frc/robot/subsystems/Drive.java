@@ -7,12 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANEncoder;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,17 +21,17 @@ import frc.robot.Motor;
 public class Drive extends SubsystemBase {
 
   private final DifferentialDrive driveBase;
-  
-  private final Motor leftFront = new Motor(Constants.K_DRIVE_LEFT_FRONT_ID, Motor.Type.Brushless); //10
-  private final Motor leftBack = new Motor(Constants.K_DRIVE_LEFT_BACK_ID, Motor.Type.Brushless); //1 (on howie)
-  private final Motor rightFront = new Motor(Constants.K_DRIVE_RIGHT_FRONT_ID, Motor.Type.Brushless); //3
-  private final Motor rightBack = new Motor(Constants.K_DRIVE_RIGHT_BACK_ID, Motor.Type.Brushless); //12
+
+  private final Motor leftFront = new Motor(Constants.K_DRIVE_LEFT_FRONT_ID, Motor.Type.Brushless); // 10
+  private final Motor leftBack = new Motor(Constants.K_DRIVE_LEFT_BACK_ID, Motor.Type.Brushless); // 1 (on howie)
+  private final Motor rightFront = new Motor(Constants.K_DRIVE_RIGHT_FRONT_ID, Motor.Type.Brushless); // 3
+  private final Motor rightBack = new Motor(Constants.K_DRIVE_RIGHT_BACK_ID, Motor.Type.Brushless); // 12
 
   private final SpeedControllerGroup leftSide;
   private final SpeedControllerGroup rightSide;
 
   PIDController leftPID;
-  PIDController rightPID; 
+  PIDController rightPID;
 
   CANEncoder leftEncoder;
   CANEncoder rightEncoder;
@@ -60,8 +59,9 @@ public class Drive extends SubsystemBase {
   public void arcadeDrive(final double velocity, final double rotation) {
     driveBase.arcadeDrive(velocity, rotation);
   }
+
   public void tankDrive(final double leftSpeed, final double rightSpeed) {
-    //driveBase.tankDrive(leftSpeed, rightSpeed);
+    // driveBase.tankDrive(leftSpeed, rightSpeed);
   }
 
   @Override

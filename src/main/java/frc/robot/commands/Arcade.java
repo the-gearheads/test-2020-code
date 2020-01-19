@@ -7,11 +7,10 @@
 
 package frc.robot.commands;
 
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive;
-import frc.robot.Constants;
 
 public class Arcade extends CommandBase {
 
@@ -23,7 +22,7 @@ public class Arcade extends CommandBase {
   public Arcade(Drive subsystem) {
     driveTrain = subsystem;
     addRequirements(subsystem);
-    //subsystem.setDefaultCommand(this);
+    // subsystem.setDefaultCommand(this);
   }
 
   @Override

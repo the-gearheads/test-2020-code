@@ -7,15 +7,15 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import com.revrobotics.CANEncoder;
-import frc.robot.Motor;
-import frc.robot.Constants;
 
-public class RightSidePID extends PIDSubsystem {
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import frc.robot.Motor;
+
+public class DrivePID extends PIDSubsystem {
 
   private final Motor front;
   private final Motor back;
@@ -23,23 +23,22 @@ public class RightSidePID extends PIDSubsystem {
   private final SpeedControllerGroup group;
   private final SimpleMotorFeedforward feedForward;
 
-  public RightSidePID() {
-    super(
-        new PIDController(Constants.RDRIVE_P, 0, Constants.RDRIVE_D));
+  public DrivePID(double P, double D, double S, double V, double tolerance, int frontID, int backID,
+      double encoderConstant) {
+    super(new PIDController(P, 0, D));
 
-    front = new Motor(Constants.K_DRIVE_RIGHT_FRONT_ID, Motor.Type.Brushless);
-    back = new Motor(Constants.K_DRIVE_RIGHT_BACK_ID, Motor.Type.Brushless);
+    front = new Motor(frontID, Motor.Type.Brushless);
+    back = new Motor(backID, Motor.Type.Brushless);
     encoder = front.CAN().getEncoder();
-    encoder.setPositionConversionFactor((1 / 8.45) * 0.0983 * Math.PI);
-    encoder.setVelocityConversionFactor(((1 / 8.45) * 0.0983 * Math.PI) / 60.);
+    encoder.setPositionConversionFactor(encoderConstant);
+    encoder.setVelocityConversionFactor(encoderConstant / 60.0);
     encoder.setPosition(0);
-    
-    getController().setTolerance(0.05);
-    group = new SpeedControllerGroup(front.CAN(), back.CAN());
-    group.setInverted(true);
 
-    feedForward = new SimpleMotorFeedforward(Constants.RDRIVE_S, Constants.RDRIVE_V);
-    setSetpoint(0.01);
+    getController().setTolerance(tolerance);
+    group = new SpeedControllerGroup(front.CAN(), back.CAN());
+
+    feedForward = new SimpleMotorFeedforward(S, V);
+    setSetpoint(0);
   }
 
   @Override

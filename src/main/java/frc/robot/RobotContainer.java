@@ -7,18 +7,20 @@
 
 package frc.robot;
 
-import frc.robot.commands.Tank;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.LeftSidePID;
-import frc.robot.subsystems.RightSidePID;
-import edu.wpi.first.wpilibj2.command.Command;
-
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.Tank;
+import frc.robot.subsystems.DrivePID;
 
 public class RobotContainer {
 
-  private final LeftSidePID leftPID = new LeftSidePID();
-  private final RightSidePID rightPID = new RightSidePID();
+  // (1/ GEARING) * WHEEL_DIAMETER * PI
+  private final double ENCODER_CONSTANT = (1 / 8.45) * 0.0983 * Math.PI;
+
+  private final DrivePID leftPID = new DrivePID(Constants.LDRIVE_P, Constants.LDRIVE_D, Constants.LDRIVE_S,
+      Constants.LDRIVE_V, 0.05, Constants.K_DRIVE_LEFT_FRONT_ID, Constants.K_DRIVE_LEFT_BACK_ID, ENCODER_CONSTANT);
+  private final DrivePID rightPID = new DrivePID(Constants.RDRIVE_P, Constants.RDRIVE_D, Constants.RDRIVE_S,
+      Constants.RDRIVE_V, 0.05, Constants.K_DRIVE_RIGHT_FRONT_ID, Constants.K_DRIVE_RIGHT_BACK_ID, ENCODER_CONSTANT);
   private final Tank m_autoCommand = new Tank(leftPID, rightPID);
 
   public static XboxController joy = new XboxController(0);

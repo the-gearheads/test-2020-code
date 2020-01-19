@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 
 public class Motor {
@@ -11,8 +12,9 @@ public class Motor {
 
     public enum Type {
         Brushed(0), Brushless(1);
-        
+
         private int id;
+
         private Type(int val) {
             id = val;
         }
@@ -26,7 +28,11 @@ public class Motor {
         can = new CANSparkMax(channel, MotorType.fromId(type.id));
     }
 
-    public PWMTalonSRX PWM() { return pwm; }
+    public PWMTalonSRX PWM() {
+        return pwm;
+    }
 
-    public CANSparkMax CAN() { return can; }
+    public CANSparkMax CAN() {
+        return can;
+    }
 }

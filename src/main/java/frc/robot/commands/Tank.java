@@ -7,7 +7,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivePID;
 
@@ -24,20 +27,37 @@ public class Tank extends CommandBase {
     rightTrain = rightPID;
     addRequirements(leftPID);
     addRequirements(rightPID);
+    leftTrain.enable();
+    rightTrain.enable();
   }
 
   @Override
   public void execute() {
-    if (RobotContainer.joy.getAButton()) {
+    SmartDashboard.putNumber("angle", RobotContainer.navx.getAngle());
+    if (RobotContainer.joy.getAButtonPressed()) {
       leftTrain.enable();
       rightTrain.enable();
-      leftTrain.setSetpoint(0.05);
-      rightTrain.setSetpoint(0.05);
-    } else if (RobotContainer.joy.getBButton()) {
+    } else if (RobotContainer.joy.getBButtonPressed()) {
       leftTrain.disable();
       rightTrain.disable();
-      leftTrain.setSetpoint(0.05);
-      rightTrain.setSetpoint(0.05);
     }
+    
+    int angle = RobotContainer.joy.getPOV(0);
+    double speed = 0;
+    int invert = 1;
+    if (angle == 0) {
+      speed = -1;
+    } else if (angle == 90) {
+      speed = -.1;
+      invert = -1;
+    } else if (angle == 180) {
+      speed = 1;
+    } else if (angle == 270) {
+      speed = .1;
+      invert = -1;
+    }
+    
+    leftTrain.setSetpoint(speed * Constants.SPEED);
+    rightTrain.setSetpoint(speed * Constants.SPEED * invert);
   }
 }
